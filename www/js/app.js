@@ -137,3 +137,7 @@ cordova.plugins.barcodeScanner.scan(
       }
    );
 }
+
+function alertme(){
+	app.dialog.alert("Alert Works");
+}
