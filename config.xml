@@ -39,16 +39,17 @@
         <icon density="xhdpi" src="res/icon/android/drawable-xhdpi-icon.png" />
         <icon density="xxhdpi" src="res/icon/android/drawable-xxhdpi-icon.png" />
         <icon density="xxxhdpi" src="res/icon/android/drawable-xxxhdpi-icon.png" />
-        <splash qualifier="ldpi" src="res/screen/android/drawable-port-ldpi-screen.png" />
-        <splash qualifier="mdpi" src="res/screen/android/drawable-port-mdpi-screen.png" />
-        <splash qualifier="hdpi" src="res/screen/android/drawable-port-hdpi-screen.png" />
-        <splash qualifier="xhdpi" src="res/screen/android/drawable-port-xhdpi-screen.png" />
-        <splash qualifier="xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png" />
-        <splash qualifier="xxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png" />
+        <splash density="ldpi" src="res/screen/android/drawable-port-ldpi-screen.png" />
+        <splash density="mdpi" src="res/screen/android/drawable-port-mdpi-screen.png" />
+        <splash density="hdpi" src="res/screen/android/drawable-port-hdpi-screen.png" />
+        <splash density="xhdpi" src="res/screen/android/drawable-port-xhdpi-screen.png" />
+        <splash density="xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png" />
+        <splash density="xxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png" />
 	</platform>   
 	
 	<preference name="phonegap-version" value="cli-7.1.0" />
-	<preference name="SplashScreen" value="splash.png" />
+	
+	<preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
