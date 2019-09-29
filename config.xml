@@ -45,10 +45,11 @@
         <splash qualifier="xhdpi" src="res/screen/android/drawable-port-xhdpi-screen.png" />
         <splash qualifier="xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png" />
         <splash qualifier="xxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png" />
-		<preference name="phonegap-version" value="cli-7.1.0" />
-	</platform>    
+	</platform>   
+	
+	<preference name="phonegap-version" value="cli-7.1.0" />
 	<preference name="SplashScreen" value="splash.png" />
-    <preference name="SplashScreenDelay" value="30000" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <engine name="browser" spec="~5.0.4" />
