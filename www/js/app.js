@@ -49,7 +49,7 @@ var mainView = app.views.create('.view-main', {
 });
 
 //Set for URL
-var formURL = 'https://www.gopaxy.com/app1';
+var formURL = 'https://www.gopaxy.com/app2';
 
 document.addEventListener('backbutton', backPressed, false);
 function backPressed(){
