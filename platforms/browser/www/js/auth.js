@@ -177,54 +177,7 @@ app.request.get(formURL, {req: reqst, phone: mobile, dcode: code}, function (dat
 
 
 
-// Register
-$$('#reg-screen .register-button').on('click', function () {
-  var mobile = $$('#reg-screen [name="phone"]').val();
-  var username = $$('#reg-screen [name="username"]').val();
-  var password = $$('#reg-screen [name="password"]').val();
-  var email = $$('#reg-screen [name="email"]').val();
-  var name1 = $$('#reg-screen [name="name1"]').val();
-  var name2 = $$('#reg-screen [name="name2"]').val();
-  var reqst = 'register';
-  
-if(mobile != '' && username != '' && password != '' && email != '' && name1 != '' && name2 != ''){
- app.preloader.show();
-  
-app.request.get(formURL, {req: reqst, phone: mobile, user: username, mail: email, firstname: name1, lastname: name2, pass: password}, function (data) {
-	data = JSON.parse(data);
- //app.dialog.alert(data.status);
-  if(data.status == 'failed'){
-	$$('.regStat').html('<span class="red">'+ data.error +'</span>');	
-	app.preloader.hide();
-  }
-	else if(data.status == 'success'){
-  //redirect to login
-  
-	localStorage.veriPhone = mobile;
-	$$('#reg-screen [name="phone"]').val('');
-	$$('#reg-screen [name="username"]').val('');
-	$$('#reg-screen [name="password"]').val('');
-  
-	//$$('.verifyStat').html('<span class="green">'+ data.message +'</span>');
-	$$('#reg-screen').hide();
-	$$('#phone-verify').show();
-	
-	$$('#phone-verify [name="phone"]').val(mobile);
-	app.preloader.hide();	
-	
-	
-}
-  else{	
-	$$('.regStat').html('<span class="red">Error! Unknown Error!</span>');	
-	app.preloader.hide();
-} 
-  
-}, function(){
-	$$('.regStat').html('<span class="red">Error! No internet connection.</span>');	
-	app.preloader.hide();
-}, {dataType: 'json'});
-}
-});
+
 
 //Change password
 function changepassword(){

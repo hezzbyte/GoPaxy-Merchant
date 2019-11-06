@@ -18,7 +18,7 @@ var app  = new Framework7({
 
   root: '#app', // App root element
   id: 'com.gopaxy.app', // App bundle ID
-  name: 'GoPaxy', // App name
+  name: 'GoPaxy Merchant', // App name
   theme: 'auto', // Automatic theme detection
   // App root data
   data: function () {
@@ -49,7 +49,7 @@ var mainView = app.views.create('.view-main', {
 });
 
 //Set for URL
-var formURL = 'https://www.gopaxy.com/app2';
+var formURL = 'https://gopaxy.com/app2/';
 
 document.addEventListener('backbutton', backPressed, false);
 function backPressed(){
@@ -138,6 +138,3 @@ cordova.plugins.barcodeScanner.scan(
    );
 }
 
-function alertme(){
-	app.dialog.alert("Alert Works");
-}

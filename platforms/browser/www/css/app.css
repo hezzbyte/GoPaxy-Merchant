@@ -180,13 +180,8 @@ span.appWallet{font-weight:200; font-size:24px}
 }
 
 
-input[type="date"], input[type="datetime-local"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], select, textarea {
-    background: 0 0;
-    font-size: inherit;
-    color: inherit;
-    border-bottom: 1px #fff solid !important;
 
-}
+
 
 .login-screen input, .login-screen select, .login-screen textarea {
     background: 0 0;
@@ -228,4 +223,24 @@ input[type="date"], input[type="datetime-local"], input[type="email"], input[typ
 	display:block;
 	text-align:center;
 	margin:10px 0
+}
+.darkk{
+	color:#000 !important;
+}
+.button {
+height: 30px;
+}
+input[type="date"], input[type="datetime-local"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], select, textarea {
+    background: 0 0;
+    font-size: inherit;
+    color: inherit;
+    background-color:rgba(0,0,0, 0.1) !important;
+	margin-top: 7px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+
+.hid{
+	display:none;
 }
