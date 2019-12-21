@@ -111,13 +111,61 @@ $$(document).on('page:init', '.page[data-name="wallet"]', function (e) {
 	trans();
   });
 
+  
+  
+  
+  
+  
 function scanbarcode(){
 cordova.plugins.barcodeScanner.scan(
       function (result) {
+		  var barcode = result.text;
+		  var reqst = 'fetchproduct';
+		  
+if(barcode != ''){
+	app.preloader.show();
+	app.request.get(formURL, {req: reqst, bcode: barcode}, function (data) {
+	data = JSON.parse(data);
+  if(data.status == 'failed'){
+	app.dialog.alert( data.error);
+	app.preloader.hide();
+  }
+	else if(data.status == 'success'){
+  // Close login screen
+	$$('.view-main, .panel').show();
+	localStorage.loginstatus = "true";
+    localStorage.appFullName = data.fullName;
+    localStorage.appWallet = data.wallet;
+    localStorage.appUserName = data.userName;
+    localStorage.appUserEmail = data.email;
+    localStorage.appUserPhone = data.phone;
+    localStorage.appUserID = data.userID;
+	app.loginScreen.close('#my-login-screen');	
+	loadContent();
+	$$('.loginStat').html('');
+	app.preloader.hide();
+	
+
+
+}
+  else{	
+	$$('.loginStat').html('<span class="red">Error! Unknown Error!</span>');	
+	app.preloader.hide();
+} 
+  
+}, function(){
+	$$('.loginStat').html('<span class="red">Error! No internet connection.</span>');	
+	app.preloader.hide();
+}, {dataType: 'json'});
+
+}
+
+		  
           alert("We got a barcode\n" +
                 "Result: " + result.text + "\n" +
                 "Format: " + result.format + "\n" +
                 "Cancelled: " + result.cancelled);
+				
       },
       function (error) {
           alert("Scanning failed: " + error);

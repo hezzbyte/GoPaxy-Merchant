@@ -1,0 +1,149 @@
+<template>
+<div class="page" data-name="new-payment">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+		<div class="title" >Request Payment</div>
+    </div>
+  </div>
+
+
+ <div class="page" data-name="catalog">
+ <div class="page-content">
+ <div class="features-home segments">
+<div class="container">
+
+
+		
+<div class="qrcode"></div>
+
+
+<div class="list newPayment">
+
+      <ul>
+      
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              You can receive funds without listing products here.
+              
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Description</div>
+              <div class="item-input-wrap">
+                <input type="text" class="description" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Method of Payment</div>
+              <div class="item-input-wrap">
+                <select>
+					<option></option>
+					<option value="1">GoPaxy</option>
+					<option value="2">Cash</option>
+				</select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input row">
+            <div class="item-inner">
+              <div class="item-title item-label">Amount</div>
+              <div class="item-input-wrap">
+                <input type="text" class="amount" />
+              </div>
+            </div>
+            
+          </div>
+        </li>
+		
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-input-wrap">
+                <a href="#" @click="requestPayment" class="col button button-fill passreset-btn">Proceed</a>
+              </div>
+            </div>
+          </div>
+        </li>
+	  </ul>
+	</div>
+				
+            </div>
+        </div>					
+
+    </div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+    methods: {
+	requestPayment: function () {
+		var description = $$('.newPayment .description').val();
+		var amount = $$('.newPayment .amount').val();
+		
+		var reqst = 'requestPayment';
+
+		if(description != '' && amount != ''){
+		 app.preloader.show();  
+		 app.request.get(formURL, {req: reqst, desc: description, amt: amount}, 
+
+		 function (data) {
+		 console.log(data)
+		data = JSON.parse(data);
+		 console.log(data)
+
+		if(data.status == 'success'){
+		
+			$$('.newPayment .description').val('');
+			$$('.newPayment .amount').val('');
+			$$('.newPayment').hide();
+						
+			var button = '<a href="#" class="col button button-fill passreset-btn">Paid with Cash</a>';			
+			$$('.qrcode').html(data.img + data.amount+data.comment+button);
+
+			
+			
+
+			app.preloader.hide();
+		}
+		else if(data.status == 'fail'){
+			alert(data.message);	
+			app.preloader.hide();
+		  }		
+		  else{	
+			alert('<span class="red">Error! Unknown Error!</span>');	
+			app.preloader.hide();
+		} 
+		}, function(){
+			alert('<span class="red">Error! No internet connection.</span>');	
+			app.preloader.hide();
+		});
+
+		}
+	}, 
+	
+
+	  
+	  
+	  
+	  
+	  
+    }
+  }
+</script>

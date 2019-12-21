@@ -244,3 +244,24 @@ input[type="date"], input[type="datetime-local"], input[type="email"], input[typ
 .hid{
 	display:none;
 }
+.removeitem{
+	background-color:red; 
+	font-size:16px !important;
+	padding:3px;
+	border-radius:50%;
+	color:#fff !important; 
+	margin-top:-13px;
+}
+.text-left{
+	text-align:left;
+}
+.text-right{
+	text-align:right;
+}
+.text-center{
+	text-align:center;
+}
+.scanbc{
+	background-color:green;
+	color:#fff !important;
+}

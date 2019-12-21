@@ -20,6 +20,14 @@ routes = [
     url: './pages/transfer.html',
   },
   {
+    path: '/new-invoice/',
+    componentUrl: './pages/new-invoice.html',
+  },
+  {
+    path: '/new-payment/',
+    componentUrl: './pages/new-payment.html',
+  },
+  {
     path: '/confirm-send/',
     url: './pages/confirm-send.html',
   },
