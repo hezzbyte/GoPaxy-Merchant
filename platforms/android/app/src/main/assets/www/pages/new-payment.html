@@ -71,14 +71,10 @@
           </div>
         </li>
 		
-        <li>
-          <div class="item-content item-input">
+        <li class="item-content item-input">
             <div class="item-inner">
-              <div class="item-input-wrap">
                 <a href="#" @click="requestPayment" class="col button button-fill passreset-btn">Proceed</a>
-              </div>
             </div>
-          </div>
         </li>
 	  </ul>
 	</div>
@@ -104,9 +100,9 @@
 		 app.request.get(formURL, {req: reqst, desc: description, amt: amount}, 
 
 		 function (data) {
-		 console.log(data)
+		 alert(data)
 		data = JSON.parse(data);
-		 console.log(data)
+		 //alert(data)
 
 		if(data.status == 'success'){
 		
