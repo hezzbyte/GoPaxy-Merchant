@@ -20,13 +20,18 @@
 
 
 		
-<div class="qrcode"></div>
+<div class=""></div>
 
 
 <div class="list newPayment">
+<div class="hide3 text-center" style="padding-top:100px">
+	<img src="../img/tick_green.png" width="50">
+	<br>
+	Transaction completed
+</div>
 
       <ul>
-      
+      <span class="qrcode">
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
@@ -70,10 +75,17 @@
             
           </div>
         </li>
+		</span>
 		
         <li class="item-content item-input">
             <div class="item-inner">
-                <a href="#" @click="requestPayment" class="col button button-fill passreset-btn">Proceed</a>
+                <a href="#" @click="requestPayment" class="col button button-fill passreset-btn hide1">Proceed</a>
+				
+				<div class="text-center hide2">Kindly scan the QR code above to make payment.<br> 
+				<a  @click="qryPayment" href=\"#\">Click Here to query transaction after payment</a><br></div>
+				                <input type="hidden" class="tid" />
+
+                <a href="#" @click="paidcash" class="col button button-fill passreset-btn hide2">Paid Cash</a>
             </div>
         </li>
 	  </ul>
@@ -88,7 +100,61 @@
 </template>
 <script>
   return {
+    on: {
+      pageInit: function () {
+        $$('.hide2').hide();
+        $$('.hide3').hide();
+     },
+    },
     methods: {
+	
+	
+	qryPayment: function () {
+		alert('Queried!');
+	}, 
+	
+	
+	paidcash: function () {
+        $$('.hide2').hide();		
+        $$('.qrcode').hide();	
+
+		var tid = $$('.newPayment .tid').val();	
+		var reqst = 'paidcash';
+
+		if(tid != ''){
+		 app.preloader.show();  
+		 app.request.get(formURL, {req: reqst, txid: tid}, 
+
+		 function (data) {
+		data = JSON.parse(data);
+
+		if(data.status == 'success'){
+		
+			$$('.hide3').show();
+			
+
+			
+			app.preloader.hide();
+		}
+		else if(data.status == 'fail'){
+			alert(data.message);	
+			app.preloader.hide();
+		  }		
+		  else{	
+			alert('<span class="red">Error! Unknown Error!</span>');	
+			app.preloader.hide();
+		} 
+		}, function(){
+			alert('<span class="red">Error! No internet connection.</span>');	
+			app.preloader.hide();
+		});
+
+		}
+			
+		
+	}, 
+	
+	
 	requestPayment: function () {
 		var description = $$('.newPayment .description').val();
 		var amount = $$('.newPayment .amount').val();
@@ -100,22 +166,14 @@
 		 app.request.get(formURL, {req: reqst, desc: description, amt: amount}, 
 
 		 function (data) {
-		 alert(data)
 		data = JSON.parse(data);
-		 //alert(data)
 
 		if(data.status == 'success'){
 		
-			$$('.newPayment .description').val('');
-			$$('.newPayment .amount').val('');
-			$$('.newPayment').hide();
-						
-			var button = '<a href="#" class="col button button-fill passreset-btn">Paid with Cash</a>';			
-			$$('.qrcode').html(data.img + data.amount+data.comment+button);
-
-			
-			
-
+			$$('.hide1').hide();
+			$$('.hide2').show();
+			$$('.qrcode').html(data.img + data.amount);
+			$$('.newPayment .tid').val(data.tid)
 			app.preloader.hide();
 		}
 		else if(data.status == 'fail'){
@@ -134,11 +192,6 @@
 		}
 	}, 
 	
-
-	  
-	  
-	  
-	  
 	  
     }
   }

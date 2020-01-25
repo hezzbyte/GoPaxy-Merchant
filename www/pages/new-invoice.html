@@ -67,22 +67,21 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-input-wrap">
                 <a href="#" @click="addToCart" class="col button button-fill passreset-btn">Add to Cart</a>
-              </div>
             </div>
           </div>
         </li>
 	  </ul>
 	</div>
+	<hr>
 				
-		<div class="section-title">
-			Cart
+		<div class="section-title text-center">
+			<h3>Cart</h3>
 		</div>
 		<div class="cartlist">
 		
 		</div>
-				
+		<a href="#" @click="checkout" class="col button button-fill passreset-btn chout">Checkout</a>	
             </div>
         </div>					
 
@@ -94,8 +93,12 @@
   return {
       on: {
       pageInit: function () {
+		$$('.chout').hide();
+
         if(localStorage.invoice != ''){
 			$$('.cartlist').html(localStorage.invoice);
+			$$('.chout').show();
+			
 		}
      },
     },
