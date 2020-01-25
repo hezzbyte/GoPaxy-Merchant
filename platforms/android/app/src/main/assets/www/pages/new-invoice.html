@@ -92,43 +92,20 @@
 </template>
 <script>
   return {
+      on: {
+      pageInit: function () {
+        if(localStorage.invoice != ''){
+			$$('.cartlist').html(localStorage.invoice);
+		}
+     },
+    },
+	
     methods: {
-		
+	
 	checkout: function () {
-		
-		var reqst = 'checkout';
-
-		if(productName != ''){
-		 app.preloader.show();  
-		 app.request.get(formURL, {req: reqst}, 
-
-		function (data) {
-		
-		console.log(data)
-		data = JSON.parse(data);
-		console.log(data)
-
-		if(data.status == 'success'){
-						
-			$$('.qrcode').html(data.img + data.amount);			
-
-			app.preloader.hide();
-		}
-		else if(data.status == 'fail'){
-			alert(data.message);	
-			app.preloader.hide();
-		  }		
-		  else{	
-			alert('<span class="red">Error! Unknown Error!</span>');	
-			app.preloader.hide();
-		} 
-		}, function(){
-			alert('<span class="red">Error! No internet connection.</span>');	
-			app.preloader.hide();
-		});
-
-		}
+			alert('ok');
 	}, 
+	
 	
 	addToCart: function () {
 		var productName = $$('.newInvoice .productName').val();
@@ -149,11 +126,8 @@
 			$$('.newInvoice .productPrice').val('');
 			$$('.newInvoice .productID').val('');
 			$$('.newInvoice .quantity').val('');
-			
+			localStorage.invoice = data;
 			$$('.cartlist').html(data);
-			
-			
-
 			app.preloader.hide();
 		}
 		else if(data == ''){
@@ -234,10 +208,6 @@
    );
 		
       }
-	  
-	  
-	  
-	  
 	  
     }
   }
