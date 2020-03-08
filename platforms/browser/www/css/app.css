@@ -58,7 +58,7 @@ span.appWallet{font-weight:200; font-size:24px}
 	font-size:16px;
 }
 .login-screen-content{
-	background-image: linear-gradient(#a100c3, #7f00f5);
+	background: linear-gradient(200deg, #1896fc, #1053fa);
 	color:#fff !important;	
 }
 

@@ -87,7 +87,9 @@ $$('#my-login-screen .login-button').on('click', function () {
 if(username != '' && password != ''){
 	app.preloader.show();
 	app.request.get(formURL, {req: reqst, user: username, pass: password}, function (data) {
+	console.log(data);	
 	data = JSON.parse(data);
+	console.log(data);	
   if(data.status == 'failed'){
 	$$('.loginStat').html('<span class="red">'+ data.error +'</span>');	
 	app.preloader.hide();
@@ -102,6 +104,7 @@ if(username != '' && password != ''){
     localStorage.appUserEmail = data.email;
     localStorage.appUserPhone = data.phone;
     localStorage.appUserID = data.userID;
+    localStorage.appStoreName = data.storeName;
 	app.loginScreen.close('#my-login-screen');	
 	loadContent();
 	$$('.loginStat').html('');

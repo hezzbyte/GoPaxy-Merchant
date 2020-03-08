@@ -18,9 +18,7 @@
  <div class="features-home segments">
 <div class="container">
 
-
-<div class="qrcode"></div>
-			
+<span class="hide1">			
  <div class="list newInvoice">
       <ul>
         <li>
@@ -82,7 +80,23 @@
 		
 		</div>
 		<a href="#" @click="checkout" class="col button button-fill passreset-btn chout">Checkout</a>	
+		
+		
+		</span>
+		
+<span class="hide2">
+		<span class="qrcode">
+		</span>
+        <li class="item-content item-input">
+            <div class="item-inner">				
+				<div class="text-center hide2">Kindly scan the QR code above to make payment.<br> 
+				<a  @click="qryPayment" href=\"#\">Click Here to query transaction after payment</a><br></div>
+				<input type="hidden" class="tid" />
+                <a href="#" @click="paidCash" class="col button button-fill passreset-btn hide2">Paid Cash</a>
             </div>
+        </li>
+</span>	
+         </div>
         </div>					
 
     </div>
@@ -94,6 +108,7 @@
       on: {
       pageInit: function () {
 		$$('.chout').hide();
+		$$('.hide2').hide();
 
         if(localStorage.invoice != ''){
 			$$('.cartlist').html(localStorage.invoice);
@@ -106,25 +121,61 @@
     methods: {
 	
 	checkout: function () {
-			alert('ok');
+		var staffid = localStorage.appUserID;		
+		var reqst = 'checkout';
+		
+		app.preloader.show();  
+		app.request.get(formURL, {req: reqst, usr: staffid}, 
+
+		function (data) {
+		data = JSON.parse(data);
+
+		if(data.status == 'success'){
+		
+			$$('.hide1').hide();
+			$$('.hide2').show();
+			$$('.qrcode').html(data.img + data.amount);
+			$$('.newPayment .tid').val(data.tid)
+			app.preloader.hide();
+		}
+		else if(data.status == 'fail'){
+			alert(data.message);	
+			app.preloader.hide();
+		  }		
+		  else{	
+			alert('<span class="red">Error! Unknown Error!</span>');	
+			app.preloader.hide();
+		} 
+		}, function(){
+			alert('<span class="red">Error! No internet connection.</span>');	
+			app.preloader.hide();
+		});
+
 	}, 
 	
+	qryPayment: function () {
+		alert('Queried!');
+	}, 
+	
+	paidCash: function () {
+		alert('Paid Cash!');
+	}, 
 	
 	addToCart: function () {
 		var productName = $$('.newInvoice .productName').val();
 		var productPrice = $$('.newInvoice .productPrice').val();
 		var productID = $$('.newInvoice .productID').val();
 		var quantity = $$('.newInvoice .quantity').val();
+		var staffid = localStorage.appUserID;
 		
 		var reqst = 'addToCart';
 
 		if(productName != '' && productPrice != '' && quantity != ''){
 		 app.preloader.show();  
-		 app.request.get(formURL, {req: reqst, pname: productName, pprice: productPrice, pid: productID, qty: quantity}, 
+		 app.request.get(formURL, {req: reqst, pname: productName, pprice: productPrice, pid: productID, qty: quantity, usr: staffid}, 
 
-		 function (data) {
+		function (data) {
 		if(data != '1'){
-		
 			$$('.newInvoice .productName').val('');
 			$$('.newInvoice .productPrice').val('');
 			$$('.newInvoice .productID').val('');
@@ -136,8 +187,7 @@
 		else if(data == ''){
 			alert(data);	
 			app.preloader.hide();
-		  }		
-		  else{	
+		}else{	
 			alert('<span class="red">Error! Unknown Error!</span>');	
 			app.preloader.hide();
 		} 
@@ -151,8 +201,8 @@
 	
     bybarcode: function () {
 		
-	  cordova.plugins.barcodeScanner.scan(
-      function (result) {
+	cordova.plugins.barcodeScanner.scan(
+    function (result) {
 	  
 	if(result.text != ''){
 	app.preloader.show();

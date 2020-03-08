@@ -94,8 +94,7 @@ function loadContent(){
 	$$('.appFullName').text(localStorage.appFullName);
 	$$('.appWallet').text('₦' + nformat(localStorage.appWallet));
 	$$('.appUserName').text(localStorage.appUserName);
-	//$$('.appUserEmail').text(localStorage.appUserEmail);
-	//$$('.appUserPhone').text(localStorage.appUserPhone);
+	$$('.appStoreName').text("Store: "+localStorage.appStoreName);
 }
 
 
@@ -184,5 +183,38 @@ if(barcode != ''){
           disableSuccessBeep: false // iOS and Android
       }
    );
+}
+
+function removeitm(id){	
+		var itmid = id;
+		var staffid = localStorage.appUserID;
+		
+		var reqst = 'removeItem';
+
+		if(itmid != ''){
+		 app.preloader.show();  
+		 app.request.get(formURL, {req: reqst, itemid: itmid, usr: staffid}, 
+
+		 function (data) {
+		if(data != '1'){
+			localStorage.invoice = data;
+			$$('.cartlist').html(data);
+			app.preloader.hide();
+		}
+		else if(data == ''){
+			alert(data);	
+			app.preloader.hide();
+		  }		
+		  else{	
+			alert('<span class="red">Error! Unknown Error!</span>');	
+			app.preloader.hide();
+		} 
+		}, function(){
+			alert('<span class="red">Error! No internet connection.</span>');	
+			app.preloader.hide();
+		});
+
+		}
+	
 }
 
